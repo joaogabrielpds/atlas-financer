@@ -1,0 +1,34 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Atlas Finance{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/atlas.css' %}">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">A</span><div>ATLAS<span>FINANCE</span></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <a class="nav-item active" href="/">▦ &nbsp; Visão geral</a>
+    <a class="nav-item" href="#">◷ &nbsp; Mercados</a>
+    <a class="nav-item" href="#">⌂ &nbsp; Brasil</a>
+    <a class="nav-item" href="#">◎ &nbsp; Internacional</a>
+    <div class="nav-label">ANÁLISE</div>
+    <a class="nav-item" href="#">▤ &nbsp; Economia</a>
+    <a class="nav-item" href="#">⌁ &nbsp; Ações e FIIs</a>
+    <a class="nav-item" href="#">⌗ &nbsp; Análise técnica</a>
+    <a class="nav-item" href="#">◫ &nbsp; Fundamentalista</a>
+    <div class="nav-label">PESSOAL</div>
+    <a class="nav-item" href="#">◇ &nbsp; Minha carteira</a>
+    <a class="nav-item" href="#">✧ &nbsp; Inteligência</a>
+    <div class="sidebar-bottom">MARKET INTELLIGENCE<br><span>AMBIENTE LOCAL · BRL</span></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div>TERMINAL <span>/</span> {% block breadcrumb %}VISÃO GERAL{% endblock %}</div><div class="top-right"><span class="live-dot"></span> SISTEMA INICIALIZADO <span class="currency">BRL ▾</span></div></header>
+    <section class="content">{% block content %}{% endblock %}</section>
+    <footer>ATLAS FINANCE <span>·</span> DADOS DE MERCADO SERÃO CONECTADOS NAS PRÓXIMAS ETAPAS</footer>
+  </main>
+</body>
+</html>

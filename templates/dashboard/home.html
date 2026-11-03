@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Visão geral | Atlas Finance{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><div class="eyebrow">SATURDAY, 31 OCTOBER 2026 · AMBIENTE DE DESENVOLVIMENTO</div><h1>Visão geral do mercado</h1><p>Uma visão consolidada dos mercados brasileiros e internacionais.</p></div>
+  <div class="status-pill"><span class="live-dot"></span> AGUARDANDO FONTES DE DADOS</div>
+</div>
+<div class="notice"><strong>Ambiente inicial</strong><span>Os painéis abaixo são marcadores de estrutura. Nenhuma cotação ou variação é exibida até a integração e validação das fontes.</span></div>
+<div class="section-title">MERCADOS GLOBAIS <span>01 / OVERVIEW</span></div>
+<div class="metric-grid">
+  <article class="metric"><div class="metric-label">IBOVESPA <span>B3</span></div><div class="metric-value">—</div><div class="metric-foot">Aguardando integração</div></article>
+  <article class="metric"><div class="metric-label">S&P 500 <span>USA</span></div><div class="metric-value">—</div><div class="metric-foot">Aguardando integração</div></article>
+  <article class="metric"><div class="metric-label">USD / BRL <span>CÂMBIO</span></div><div class="metric-value">R$ —</div><div class="metric-foot">Aguardando integração</div></article>
+  <article class="metric"><div class="metric-label">BITCOIN <span>CRYPTO</span></div><div class="metric-value">—</div><div class="metric-foot">Aguardando integração</div></article>
+</div>
+<div class="section-title">PAINEL DE MONITORAMENTO <span>02 / MONITOR</span></div>
+<div class="panel-grid">
+  <article class="panel chart-panel"><div class="panel-heading"><div><h2>Desempenho dos mercados</h2><p>Séries históricas serão exibidas após integração.</p></div><span class="tag">HISTÓRICO</span></div><div class="empty-chart"><div class="chart-grid"></div><div class="empty-message"><span>⌁</span><strong>Sem dados disponíveis</strong><small>Configure as fontes de mercado para iniciar o monitoramento.</small></div></div></article>
+  <article class="panel"><div class="panel-heading"><div><h2>Indicadores econômicos</h2><p>Referências macroeconômicas</p></div><span class="tag">BRASIL</span></div><div class="indicator-row"><span>Selic</span><b>—</b></div><div class="indicator-row"><span>IPCA</span><b>—</b></div><div class="indicator-row"><span>CDI</span><b>—</b></div><div class="indicator-row"><span>PIB</span><b>—</b></div><div class="indicator-row"><span>Desemprego</span><b>—</b></div></article>
+</div>
+<div class="section-title">ATIVIDADE DO SISTEMA <span>03 / STATUS</span></div>
+<div class="panel system-row"><div><span class="system-icon">⌘</span><div><strong>Coleta de dados</strong><small>Integrações ainda não configuradas</small></div></div><span class="tag muted">PENDENTE</span></div>
+{% endblock %}

@@ -1,0 +1,394 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d14">
+  <title>Atlas  Finance </title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/main.css">
+
+  <script defer src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>
+  <script defer src="https://unpkg.com/lightweight-charts@5.0.8/dist/lightweight-charts.standalone.production.js"></script>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/api.js"></script>
+  <script defer src="js/charts.js"></script>
+  <script defer src="js/dashboard.js"></script>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="Atlas Finance início">
+        <span class="brand-mark">A</span>
+        <span class="brand-name">ATLAS<small>FINANCE</small></span>
+      </a>
+
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="nav-group" aria-label="Navegação principal">
+        <a class="nav-item active" href="#overview" data-page="overview"><span class="nav-icon">▦</span> Visão geral</a>
+        <a class="nav-item" href="#markets" data-page="markets"><span class="nav-icon">◷</span> Mercados</a>
+        <a class="nav-item" href="#brazil" data-page="brazil"><span class="nav-icon">⌂</span> Brasil</a>
+        <a class="nav-item" href="#international" data-page="international"><span class="nav-icon">◎</span> Internacional</a>
+      </nav>
+
+      <div class="nav-label">ANÁLISE</div>
+      <nav class="nav-group" aria-label="Análise">
+        <a class="nav-item" href="#economy" data-page="economy"><span class="nav-icon">▤</span> Economia</a>
+        <a class="nav-item" href="#assets" data-page="assets"><span class="nav-icon">⌁</span> Ações e FIIs</a>
+        <a class="nav-item" href="#technical" data-page="technical"><span class="nav-icon">⌗</span> Análise técnica</a>
+        <a class="nav-item" href="#fundamentals" data-page="fundamentals"><span class="nav-icon">◫</span> Fundamentalista</a>
+      </nav>
+
+      <div class="nav-label">PESSOAL</div>
+      <nav class="nav-group" aria-label="Pessoal">
+        <a class="nav-item" href="#portfolio" data-page="portfolio"><span class="nav-icon">◇</span> Minha carteira</a>
+        <a class="nav-item" href="#intelligence" data-page="intelligence"><span class="nav-icon">✧</span> Inteligência</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="system-indicator"><span class="status-dot"></span> FRONTEND ONLINE</div>
+        <div>AMBIENTE LOCAL · BRL</div>
+        <div class="sidebar-version">ATLAS FINANCE v0.1.0</div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-button mobile-menu" id="menu-toggle" aria-label="Abrir menu">☰</button>
+          <span class="terminal-label">TERMINAL</span>
+          <span class="crumb-separator">/</span>
+          <span id="breadcrumb">VISÃO GERAL</span>
+        </div>
+
+        <div class="topbar-right">
+          <div class="connection-state">
+            <span class="status-dot" id="api-dot"></span>
+            <span id="api-status">API NÃO CONFIGURADA</span>
+          </div>
+          <div class="clock" id="clock">--:--:--</div>
+          <span class="currency-selector">BRL <span>⌄</span></span>
+        </div>
+      </header>
+
+      <section class="page-content" id="page-content">
+
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">MARKET INTELLIGENCE / AMBIENTE LOCAL</div>
+            <h1>Visão geral do mercado</h1>
+            <p class="page-description">
+              Acompanhe os mercados brasileiros e internacionais em um único terminal.
+            </p>
+          </div>
+
+          <div class="heading-actions">
+            <span class="status-chip"><span class="status-dot"></span> SISTEMA OPERACIONAL</span>
+            <button class="button-secondary" id="refresh-button">↻ <span>Atualizar</span></button>
+          </div>
+        </div>
+
+        <div class="notice notice-info">
+          <span class="notice-icon">i</span>
+          <div>
+            <strong>Dados financeiros integrados</strong>
+            <p>As cotações e séries históricas são carregadas pela API do Atlas Finance. Os dados podem apresentar atraso em relação ao mercado.</p>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <h2>Mercados globais</h2>
+          <span>01 / MARKET SNAPSHOT</span>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card">
+            <div class="metric-top"><span>PETROBRAS</span><span class="market-tag">B3</span></div>
+            <div class="metric-value" id="metric-ibov">—</div>
+            <div class="metric-foot" id="metric-ibov-change">Aguardando dados</div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-top"><span>VALE</span><span class="market-tag">B3</span></div>
+            <div class="metric-value" id="metric-spx">—</div>
+            <div class="metric-foot" id="metric-spx-change">Aguardando dados</div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-top"><span>ITAÚ UNIBANCO</span><span class="market-tag">B3</span></div>
+            <div class="metric-value" id="metric-usd">—</div>
+            <div class="metric-foot" id="metric-usd-change">Aguardando dados</div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-top"><span>BITCOIN</span><span class="market-tag">CRYPTO</span></div>
+            <div class="metric-value" id="metric-btc">—</div>
+            <div class="metric-foot" id="metric-btc-change">Aguardando dados</div>
+          </article>
+        </div>
+
+<div class="section-heading">
+  <h2>Market Watch</h2>
+  <span>02 / ASSET MONITOR</span>
+</div>
+
+<article class="panel market-watch-panel">
+  <div class="market-watch-toolbar">
+    <div>
+      <strong>Ativos monitorados</strong>
+      <div class="market-watch-info">
+        Ações, ETF e criptomoeda
+      </div>
+    </div>
+    <span class="data-badge" id="market-watch-count">0 ATIVOS</span>
+  </div>
+    <div class="market-watch-filters">
+    <div class="market-search">
+      <input
+        type="search"
+        id="market-search"
+        placeholder="Buscar ticker ou empresa..."
+        autocomplete="off"
+      />
+    </div>
+
+    <select id="market-filter" aria-label="Filtrar por mercado">
+      <option value="all">Todos os mercados</option>
+      <option value="B3">B3</option>
+      <option value="NASDAQ">NASDAQ</option>
+      <option value="CRYPTO">Criptomoedas</option>
+    </select>
+
+    <select id="market-sort" aria-label="Ordenar ativos">
+      <option value="default">Ordem padrão</option>
+      <option value="price-desc">Maior preço</option>
+      <option value="price-asc">Menor preço</option>
+      <option value="variation-desc">Maior valorização</option>
+      <option value="variation-asc">Maior queda</option>
+      <option value="volume-desc">Maior volume</option>
+    </select>
+  </div>
+  <div class="market-watch-wrapper">
+    <table class="market-watch-table">
+      <thead>
+        <tr>
+          <th>Ativo</th>
+          <th>Último preço</th>
+          <th>Variação diária</th>
+          <th>Máxima</th>
+          <th>Mínima</th>
+          <th>Volume</th>
+        </tr>
+      </thead>
+      <tbody id="market-watch-body">
+        <tr>
+          <td colspan="6" class="market-watch-empty">
+            Aguardando dados da API...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel-footnote market-watch-updated" id="market-watch-updated">
+    Aguardando atualização dos dados.
+  </div>
+</article>
+
+        <div class="section-heading">
+          <h2>Monitoramento de mercado</h2>
+          <span>02 / ANALYTICS</span>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel panel-large">
+            <div class="panel-header">
+              <div>
+                <h3 id="performance-title">Desempenho de PETR4</h3>
+                <p>Histórico de preços e variação · Petrobras</p>
+              </div>
+
+              <div class="panel-controls">
+                <span class="data-badge">SÉRIE HISTÓRICA</span>
+                <select id="period-select" aria-label="Período do gráfico">
+                  <option value="1D">Último pregão</option>
+                  <option value="1M" selected>1 mês</option>
+                  <option value="6M">6 meses</option>
+                  <option value="1Y">1 ano</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="chart-empty" id="performance-chart">
+              <div class="empty-state">
+                <span class="empty-symbol">⌁</span>
+                <strong>Carregando histórico de preços</strong>
+                <small>Os dados serão carregados pela API do Atlas Finance.</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <h3>Indicadores econômicos</h3>
+                <p>Referências macroeconômicas</p>
+              </div>
+              <span class="data-badge">BRASIL</span>
+            </div>
+
+            
+<div class="indicator-list">
+  <div class="indicator-row">
+    <span>Taxa Selic Meta</span>
+    <strong id="indicator-selic">—</strong>
+  </div>
+
+  <div class="indicator-row">
+    <span>IPCA mensal</span>
+    <strong id="indicator-ipca">—</strong>
+  </div>
+
+  <div class="indicator-row">
+    <span>CDI</span>
+    <strong id="indicator-cdi">Em integração</strong>
+  </div>
+
+  <div class="indicator-row">
+    <span>PIB</span>
+    <strong id="indicator-pib">Em integração</strong>
+  </div>
+
+  <div class="indicator-row">
+    <span>Desemprego</span>
+    <strong id="indicator-unemployment">Em integração</strong>
+  </div>
+</div>
+
+<div class="panel-footnote" id="economic-updated">
+  Aguardando dados econômicos.
+</div>
+
+          </article>
+        </div>
+
+        <div class="section-heading">
+          <h2>Terminal técnico</h2>
+          <span>03 / PRICE ACTION</span>
+        </div>
+
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <h3 id="candlestick-title">PETR4 · Gráfico de candles</h3>
+              <p>Abertura, máxima, mínima e fechamento</p>
+            </div>
+            <span class="data-badge">CANDLESTICK</span>
+          </div>
+          <div class="candle-legend" id="candle-legend">
+  <span class="candle-date" id="candle-date">Selecione um candle</span>
+
+  <span>O: <strong id="candle-open">—</strong></span>
+  <span>H: <strong id="candle-high">—</strong></span>
+  <span>L: <strong id="candle-low">—</strong></span>
+  <span>C: <strong id="candle-close">—</strong></span>
+  <span>VOL: <strong id="candle-volume">—</strong></span>
+</div>
+          <div class="chart-empty candle-empty" id="candlestick-chart">
+            <div class="empty-state">
+              <span class="empty-symbol">▥</span>
+              <strong>Carregando candles</strong>
+              <small>Os dados OHLC serão carregados pela API.</small>
+            </div>
+          </div>
+        </article>
+
+                <article class="panel rsi-panel">
+          <div class="panel-header">
+            <div>
+              <h3 id="rsi-title">RSI — PETR4</h3>
+              <p>Índice de Força Relativa · Período 14</p>
+            </div>
+            <span class="data-badge">RSI 14</span>
+          </div>
+
+          <div class="rsi-summary">
+            <strong id="rsi-value">—</strong>
+            <span id="rsi-status">Aguardando dados</span>
+          </div>
+
+          <div id="rsi-chart" class="rsi-chart"></div>
+        </article>
+
+        <article class="panel macd-panel">
+          <div class="panel-header">
+            <div>
+              <h3 id="macd-title">MACD — PETR4</h3>
+              <p>Convergência e divergência de médias móveis · 12, 26, 9</p>
+            </div>
+            <span class="data-badge">MACD</span>
+          </div>
+
+          <div class="macd-summary">
+            <strong id="macd-value">—</strong>
+            <span id="macd-status">Aguardando dados</span>
+          </div>
+
+          <div id="macd-chart" class="macd-chart"></div>
+        </article>
+
+        <div class="section-heading">
+          <h2>Estado das integrações</h2>
+          <span>04 / SYSTEM STATUS</span>
+        </div>
+        <div class="integration-grid">
+          <article class="integration-card">
+            <div class="integration-icon">API</div>
+            <div>
+              <strong>Backend Django</strong>
+              <small id="backend-detail">Aguardando conexão</small>
+            </div>
+            <span class="integration-status pending" id="backend-badge">PENDENTE</span>
+          </article>
+
+          <article class="integration-card">
+            <div class="integration-icon">DB</div>
+            <div>
+              <strong>PostgreSQL</strong>
+              <small>Conexão gerenciada pelo backend</small>
+            </div>
+            <span class="integration-status neutral">INDIRETO</span>
+          </article>
+
+          <article class="integration-card">
+            <div class="integration-icon">MD</div>
+            <div>
+              <strong>Market Data</strong>
+              <small>Dados históricos via yfinance</small>
+            </div>
+            <span class="integration-status pending">AGUARDANDO</span>
+          </article>
+        </div>
+
+      </section>
+
+      <footer class="app-footer">
+        <span>ATLAS FINANCE</span>
+        <span>FINANCIAL INTELLIGENCE TERMINAL</span>
+        <span>LOCAL DEVELOPMENT</span>
+      </footer>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
