@@ -1,4 +1,14 @@
+
 from django.urls import path
 
-app_name = 'technical'
-urlpatterns = []
+from .views import TechnicalIndicatorsView
+
+app_name = "technical"
+
+urlpatterns = [
+    path(
+        "<str:ticker>/",
+        TechnicalIndicatorsView.as_view(),
+        name="indicators",
+    ),
+]

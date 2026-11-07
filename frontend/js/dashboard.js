@@ -14,6 +14,7 @@
 
   let latestQuotes = [];
   let histories = {};
+  let technicalHistories = {};
   let selectedTicker = "PETR4";
   const toast = message => {
     const node = $("#toast");
@@ -292,6 +293,33 @@ return;
     return rows.filter(row => new Date(row.timestamp) >= start);
 }
 
+async function loadTechnicalHistory(ticker) {
+  if (Object.prototype.hasOwnProperty.call(technicalHistories, ticker)) {
+    return;
+  }
+
+  try {
+    const response = await window.AtlasAPI.getTechnicalIndicators(ticker);
+
+    technicalHistories[ticker] = response.data || [];
+
+    if (ticker !== selectedTicker) return;
+
+    const rows = getFilteredHistory();
+
+    window.AtlasCharts.renderPerformanceChart(
+      "performance-chart",
+      rows,
+      technicalHistories[ticker]
+    );
+
+    console.log(`Indicadores técnicos carregados: ${ticker}`);
+  } catch (error) {
+    technicalHistories[ticker] = [];
+    console.error(`Erro ao carregar indicadores de ${ticker}:`, error);
+  }
+}
+
   function renderCharts() {
     const rows = getFilteredHistory();
     const fullHistory = getOrderedHistory(selectedTicker);
@@ -338,10 +366,13 @@ $("#candlestick-title").textContent =
       return;
     }
 
-    window.AtlasCharts.renderPerformanceChart(
-      "performance-chart",
-      rows
-    );
+   window.AtlasCharts.renderPerformanceChart(
+  "performance-chart",
+  rows,
+  technicalHistories[selectedTicker] || []
+);
+
+loadTechnicalHistory(selectedTicker);
 
     const candles = rows.map(row => ({
       time: row.timestamp.slice(0, 10),

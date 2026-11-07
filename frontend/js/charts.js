@@ -297,40 +297,87 @@ function renderRSI(containerId, rows, period = 14) {
     `;
   }
 
-  function renderPerformanceChart(containerId, rows) {
-    const node = document.getElementById(containerId);
+  
+function renderPerformanceChart(containerId, rows, technicalRows = []) {
+  const node = document.getElementById(containerId);
+node.classList.remove("chart-empty");
+node.innerHTML = "";
+  if (!node || !Array.isArray(rows) || !rows.length || !window.Plotly) {
+    return false;
+  }
 
-    if (!node || !Array.isArray(rows) || !rows.length || !window.Plotly) {
-      return false;
-    }
-
-    const trace = {
+  const traces = [
+    {
       x: rows.map(row => row.timestamp),
       y: rows.map(row => Number(row.close)),
       type: "scatter",
       mode: "lines",
+      name: "Fechamento",
       line: { color: "#55c6d9", width: 2 },
       fill: "tozeroy",
       fillcolor: "rgba(85,198,217,.07)",
       hovertemplate: "%{x}<br>Fechamento: %{y:,.2f}<extra></extra>"
-    };
+    }
+  ];
 
-    window.Plotly.newPlot(node, [trace], {
-      paper_bgcolor: "transparent",
-      plot_bgcolor: "transparent",
-      margin: { l: 48, r: 12, t: 8, b: 28 },
-      font: { color: "#91a0b2", family: "DM Mono", size: 10 },
-      xaxis: { gridcolor: "#1d2a39", zeroline: false },
-      yaxis: { gridcolor: "#1d2a39", zeroline: false, tickformat: ",.2f" },
-      showlegend: false,
-      autosize: true
-    }, {
-      responsive: true,
-      displayModeBar: false
+  const averages = [
+    { key: "sma_20", name: "SMA 20", color: "#e6b65c" },
+    { key: "sma_50", name: "SMA 50", color: "#b58be8" },
+    { key: "sma_200", name: "SMA 200", color: "#55c59a" }
+  ];
+
+  const technicalByDate = new Map(
+    technicalRows.map(item => [
+      item.timestamp.slice(0, 10),
+      item
+    ])
+  );
+
+  averages.forEach(indicator => {
+    const values = rows.map(row => {
+      const technical = technicalByDate.get(
+        row.timestamp.slice(0, 10)
+      );
+
+      return technical?.[indicator.key] != null
+        ? Number(technical[indicator.key])
+        : null;
     });
 
-    return true;
-  }
+    if (values.some(value => value !== null)) {
+      traces.push({
+        x: rows.map(row => row.timestamp),
+        y: values,
+        type: "scatter",
+        mode: "lines",
+        name: indicator.name,
+        connectgaps: false,
+        line: { color: indicator.color, width: 1.5 }
+      });
+    }
+  });
+
+  window.Plotly.newPlot(node, traces, {
+    paper_bgcolor: "transparent",
+    plot_bgcolor: "transparent",
+    margin: { l: 48, r: 12, t: 25, b: 28 },
+    font: { color: "#91a0b2", family: "DM Mono", size: 10 },
+    xaxis: { gridcolor: "#1d2a39", zeroline: false },
+    yaxis: {
+      gridcolor: "#1d2a39",
+      zeroline: false,
+      tickformat: ",.2f"
+    },
+    legend: { orientation: "h", y: 1.15 },
+    showlegend: true,
+    autosize: true
+  }, {
+    responsive: true,
+    displayModeBar: false
+  });
+
+  return true;
+}
 
   function renderCandles(containerId, candles) {
     const node = document.getElementById(containerId);

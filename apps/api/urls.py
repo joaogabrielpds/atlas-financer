@@ -22,4 +22,5 @@ router.register(
 urlpatterns = [
     path("health/", views.health_check, name="health_check"),
     path("", include(router.urls)),
+    path("technical/", include("apps.technical.urls")),
 ]

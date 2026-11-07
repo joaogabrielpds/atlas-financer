@@ -17,13 +17,16 @@
     }
   }
 
-    window.AtlasAPI = {
-    request,
-    getHealth: () => request(config.ENDPOINTS.health),
-    getMarkets: () => request(config.ENDPOINTS.markets),
-    getAssets: (params = "") => request(`${config.ENDPOINTS.assets}${params}`),
-    getQuotes: (params = "") => request(`${config.ENDPOINTS.quotes}${params}`),
-    getLatestQuotes: () => request(config.ENDPOINTS.latest),
-    getIndicators: () => request(config.ENDPOINTS.indicators)
-  };
+   window.AtlasAPI = {
+  request,
+  getHealth: () => request(config.ENDPOINTS.health),
+  getMarkets: () => request(config.ENDPOINTS.markets),
+  getAssets: (params = "") => request(`${config.ENDPOINTS.assets}${params}`),
+  getQuotes: (params = "") => request(`${config.ENDPOINTS.quotes}${params}`),
+  getLatestQuotes: () => request(config.ENDPOINTS.latest),
+  getIndicators: () => request(config.ENDPOINTS.indicators),
+
+  getTechnicalIndicators: (ticker, params = "") =>
+    request(`/technical/${encodeURIComponent(ticker)}/${params}`)
+};
 })();
